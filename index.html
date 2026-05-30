@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Felix B Auto Export | Vehicle Sourcing and Export</title>
+    <meta
+      name="description"
+      content="Felix B Auto Export helps buyers source verified vehicles, request quotes, and coordinate export shipping from the United States."
+    >
+    <link rel="preload" href="assets/hero-auto-export.png" as="image">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Felix B Auto Export home">
+        <span class="brand-mark" aria-hidden="true">FB</span>
+        <span>
+          <strong>Felix B</strong>
+          <small>Auto Export</small>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="#inventory">Inventory</a>
+        <a href="#process">Process</a>
+        <a href="#manager">Manager</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button class="btn btn-primary btn-small js-whatsapp-general" type="button">
+        WhatsApp
+      </button>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-content">
+          <p class="eyebrow">U.S. vehicle sourcing and global shipping</p>
+          <h1 id="hero-title">Felix B Auto Export</h1>
+          <p class="hero-copy">
+            Verified vehicles, transparent quotes, export paperwork, and port coordination for buyers
+            who need reliable delivery from the United States.
+          </p>
+          <div class="hero-actions" aria-label="Primary actions">
+            <a class="btn btn-primary" href="#inventory">Browse inventory</a>
+            <button class="btn btn-secondary js-open-quote" type="button">Request a quote</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="trust-band" aria-label="Service highlights">
+        <div class="trust-item">
+          <span>01</span>
+          <strong>Vehicle sourcing</strong>
+          <p>Clean-title cars, SUVs, trucks, and auction opportunities.</p>
+        </div>
+        <div class="trust-item">
+          <span>02</span>
+          <strong>Quote requests</strong>
+          <p>Destination-aware pricing notes for serious export buyers.</p>
+        </div>
+        <div class="trust-item">
+          <span>03</span>
+          <strong>Export handling</strong>
+          <p>Title documents, inland transport, booking, and loading support.</p>
+        </div>
+      </section>
+
+      <section class="section inventory-section" id="inventory" aria-labelledby="inventory-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Available units</p>
+            <h2 id="inventory-title">Export-ready inventory</h2>
+          </div>
+          <button class="btn btn-outline js-open-quote" type="button">General quote</button>
+        </div>
+
+        <div class="filters" aria-label="Inventory filters">
+          <label>
+            Search
+            <input id="inventorySearch" type="search" placeholder="Make, model, year">
+          </label>
+          <label>
+            Body
+            <select id="bodyFilter">
+              <option value="">All bodies</option>
+              <option>Sedan</option>
+              <option>SUV</option>
+              <option>Truck</option>
+              <option>Van</option>
+            </select>
+          </label>
+          <label>
+            Status
+            <select id="statusFilter">
+              <option value="">All status</option>
+              <option>Available</option>
+              <option>Incoming</option>
+              <option>Reserved</option>
+              <option>Sold</option>
+            </select>
+          </label>
+          <label>
+            Max price
+            <input id="maxPriceFilter" type="number" min="0" step="500" placeholder="USD">
+          </label>
+          <label>
+            Sort
+            <select id="sortFilter">
+              <option value="featured">Featured</option>
+              <option value="price-asc">Price: low to high</option>
+              <option value="price-desc">Price: high to low</option>
+              <option value="year-desc">Newest year</option>
+              <option value="mileage-asc">Lowest mileage</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="inventory-grid" id="inventoryGrid" aria-live="polite"></div>
+        <p class="empty-state" id="inventoryEmpty" hidden>No vehicles match the selected filters.</p>
+      </section>
+
+      <section class="section process-section" id="process" aria-labelledby="process-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Export workflow</p>
+            <h2 id="process-title">From shortlist to shipment</h2>
+          </div>
+        </div>
+        <div class="process-grid">
+          <article>
+            <span>Source</span>
+            <h3>Shortlist and verify</h3>
+            <p>Vehicle details, photos, history notes, title status, and expected destination needs are reviewed before a quote is prepared.</p>
+          </article>
+          <article>
+            <span>Quote</span>
+            <h3>Price the full move</h3>
+            <p>Requests capture vehicle, port, timeline, buyer details, and shipping preference so follow-up can be focused.</p>
+          </article>
+          <article>
+            <span>Ship</span>
+            <h3>Coordinate export steps</h3>
+            <p>Inland transport, export documents, vessel booking, loading status, and buyer communication are tracked from one place.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section manager-section" id="manager" aria-labelledby="manager-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Operations</p>
+            <h2 id="manager-title">Inventory manager</h2>
+          </div>
+          <div class="manager-actions">
+            <button class="btn btn-outline" id="exportInventory" type="button">Export JSON</button>
+            <button class="btn btn-secondary" id="restoreConfig" type="button">Reload config data</button>
+          </div>
+        </div>
+
+        <div class="manager-layout">
+          <form class="manager-form" id="vehicleForm">
+            <input id="vehicleId" type="hidden">
+            <div class="form-row two">
+              <label>
+                Year
+                <input id="vehicleYear" type="number" min="1980" max="2035" required>
+              </label>
+              <label>
+                Body
+                <select id="vehicleBody" required>
+                  <option>Sedan</option>
+                  <option>SUV</option>
+                  <option>Truck</option>
+                  <option>Van</option>
+                </select>
+              </label>
+            </div>
+            <div class="form-row two">
+              <label>
+                Make
+                <input id="vehicleMake" type="text" required>
+              </label>
+              <label>
+                Model
+                <input id="vehicleModel" type="text" required>
+              </label>
+            </div>
+            <div class="form-row two">
+              <label>
+                Price USD
+                <input id="vehiclePrice" type="number" min="0" step="100" required>
+              </label>
+              <label>
+                Mileage
+                <input id="vehicleMileage" type="number" min="0" step="100" required>
+              </label>
+            </div>
+            <div class="form-row two">
+              <label>
+                Status
+                <select id="vehicleStatus" required>
+                  <option>Available</option>
+                  <option>Incoming</option>
+                  <option>Reserved</option>
+                  <option>Sold</option>
+                </select>
+              </label>
+              <label>
+                Location
+                <input id="vehicleLocation" type="text" required>
+              </label>
+            </div>
+            <label>
+              Image URL
+              <input id="vehicleImage" type="url" placeholder="https://...">
+            </label>
+            <label>
+              Notes
+              <textarea id="vehicleNotes" rows="3" placeholder="Trim, title, shipping readiness"></textarea>
+            </label>
+            <div class="form-actions">
+              <button class="btn btn-primary" id="saveVehicle" type="submit">Save vehicle</button>
+              <button class="btn btn-outline" id="cancelEdit" type="button" hidden>Cancel edit</button>
+            </div>
+          </form>
+
+          <div class="manager-panel">
+            <div class="metric-row" aria-label="Inventory metrics">
+              <div>
+                <span id="metricTotal">0</span>
+                <small>Vehicles</small>
+              </div>
+              <div>
+                <span id="metricAvailable">0</span>
+                <small>Available</small>
+              </div>
+              <div>
+                <span id="metricQuotes">0</span>
+                <small>Quotes</small>
+              </div>
+            </div>
+
+            <form class="settings-form" id="settingsForm">
+              <h3>Business settings</h3>
+              <p class="config-note">
+                Permanent website settings live in config.js. This form saves a local browser override.
+              </p>
+              <label>
+                WhatsApp number
+                <input id="settingWhatsApp" type="tel" placeholder="+1 555 123 4567">
+              </label>
+              <label>
+                Sales email
+                <input id="settingEmail" type="email" placeholder="sales@felixbautoexport.com">
+              </label>
+              <button class="btn btn-secondary" type="submit">Save settings</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="data-section">
+          <div class="table-heading">
+            <h3>Inventory records</h3>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Vehicle</th>
+                  <th>Status</th>
+                  <th>Price</th>
+                  <th>Mileage</th>
+                  <th>Location</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="inventoryTable"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="data-section">
+          <div class="table-heading">
+            <h3>Quote requests</h3>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Buyer</th>
+                  <th>Vehicle</th>
+                  <th>Destination</th>
+                  <th>Status</th>
+                  <th>Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="quoteTable"></tbody>
+            </table>
+          </div>
+          <p class="empty-state" id="quoteEmpty" hidden>No quote requests have been saved yet.</p>
+        </div>
+      </section>
+
+      <section class="section contact-section" id="contact" aria-labelledby="contact-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Contact</p>
+            <h2 id="contact-title">Talk with Felix B Auto Export</h2>
+          </div>
+        </div>
+        <div class="contact-layout">
+          <div class="contact-copy">
+            <p>
+              Send vehicle interests, destination port, budget, and shipping timeline. Quote and
+              sourcing requests are saved locally and can also open directly in WhatsApp or email.
+            </p>
+            <div class="contact-lines">
+              <a class="contact-line js-whatsapp-general" href="#contact">WhatsApp conversation</a>
+              <a class="contact-line" id="emailLink" href="mailto:sales@felixbautoexport.com">sales@felixbautoexport.com</a>
+            </div>
+          </div>
+          <form class="contact-form" id="contactForm">
+            <div class="form-row two">
+              <label>
+                Name
+                <input id="contactName" type="text" autocomplete="name" required>
+              </label>
+              <label>
+                Email or phone
+                <input id="contactMethod" type="text" autocomplete="email" required>
+              </label>
+            </div>
+            <label>
+              Topic
+              <select id="contactTopic" required>
+                <option>Vehicle sourcing</option>
+                <option>Inventory question</option>
+                <option>Export shipping</option>
+                <option>Partnership</option>
+              </select>
+            </label>
+            <label>
+              Message
+              <textarea id="contactMessage" rows="5" required></textarea>
+            </label>
+            <label>
+              Preferred reply
+              <select id="contactChannel">
+                <option value="whatsapp">WhatsApp</option>
+                <option value="email">Email</option>
+              </select>
+            </label>
+            <button class="btn btn-primary" type="submit">Send message</button>
+            <p class="form-status" id="contactStatus" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>&copy; <span id="currentYear"></span> Felix B Auto Export. Vehicle sourcing and export support.</p>
+      <button class="link-button js-whatsapp-general" type="button">Start WhatsApp quote</button>
+    </footer>
+
+    <button class="floating-whatsapp js-whatsapp-general" type="button" aria-label="Open WhatsApp">
+      WA
+    </button>
+
+    <div class="dialog-backdrop" id="quoteDialog" hidden>
+      <section class="quote-dialog" role="dialog" aria-modal="true" aria-labelledby="quoteDialogTitle">
+        <div class="dialog-heading">
+          <div>
+            <p class="eyebrow">Quote request</p>
+            <h2 id="quoteDialogTitle">Vehicle export quote</h2>
+          </div>
+          <button class="icon-button" id="closeQuote" type="button" aria-label="Close quote form">x</button>
+        </div>
+        <form id="quoteForm">
+          <div class="form-row two">
+            <label>
+              Name
+              <input id="quoteName" type="text" autocomplete="name" required>
+            </label>
+            <label>
+              Email or WhatsApp
+              <input id="quoteContact" type="text" required>
+            </label>
+          </div>
+          <label>
+            Vehicle
+            <select id="quoteVehicle"></select>
+          </label>
+          <div class="form-row two">
+            <label>
+              Destination country
+              <input id="quoteCountry" type="text" required>
+            </label>
+            <label>
+              Destination port
+              <input id="quotePort" type="text" placeholder="Optional">
+            </label>
+          </div>
+          <div class="form-row two">
+            <label>
+              Budget USD
+              <input id="quoteBudget" type="number" min="0" step="500" placeholder="Optional">
+            </label>
+            <label>
+              Timeline
+              <select id="quoteTimeline">
+                <option>As soon as available</option>
+                <option>Within 30 days</option>
+                <option>1-3 months</option>
+                <option>Flexible</option>
+              </select>
+            </label>
+          </div>
+          <label>
+            Notes
+            <textarea id="quoteNotes" rows="4" placeholder="Trim, color, shipping method, inspection needs"></textarea>
+          </label>
+          <div class="form-actions">
+            <button class="btn btn-primary" name="quoteAction" value="whatsapp" type="submit">Save and WhatsApp</button>
+            <button class="btn btn-outline" name="quoteAction" value="save" type="submit">Save only</button>
+          </div>
+          <p class="form-status" id="quoteStatus" aria-live="polite"></p>
+        </form>
+      </section>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
